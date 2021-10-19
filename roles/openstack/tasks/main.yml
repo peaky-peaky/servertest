@@ -1,0 +1,17 @@
+---
+- name: nova config
+  block:
+  - name: nova set
+    import_tasks: nova/nova.yml
+
+
+- name: placement config
+  block:
+  - name: placment set
+    import_tasks: placement/placement.yml
+
+
+- name: neutron config
+  block:
+  - name: neutron set
+    import_tasks: neutron/neutron.yml

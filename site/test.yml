@@ -1,0 +1,6 @@
+---
+- name: config test
+  become: yes
+  hosts: all
+  roles:
+    - test

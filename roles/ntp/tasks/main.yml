@@ -1,0 +1,5 @@
+---
+- name: ntp config
+  block:
+  - name: ntp set
+    import_tasks: ntpconf.yml

@@ -1,0 +1,16 @@
+---
+- name: install ntp component
+  apt:
+    name:
+      - chrony
+
+- name: deactivate default setting
+  
+
+
+- name: insert time zone
+  lineinfile: dest=/etc/chrony/chrony.conf
+           insertbefore='#pool 2.ubuntu.pool.ntp.org iburst maxsources 2'
+           line="{{item.line}}"
+  with_items:
+    - { line: 'pool ntp.nict.jp iburst' } 

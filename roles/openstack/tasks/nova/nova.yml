@@ -1,0 +1,28 @@
+---
+- name: install nova component
+  apt:
+    name:
+      - nova-api
+      - nova-conductor
+      - nova-scheduler
+      - nova-novncproxy
+      - placement-api
+      - python3-novaclient
+
+
+- name: nova config backup
+  command: mv /etc/nova/nova.conf /etc/nova/nova.conf.org
+
+
+- name: Creating an empty file
+    file:
+      path: "/etc/nova/nova.conf"
+      state: touch
+
+- name: Copy nova config
+  copy:
+    src: "/etc/nova/nova.conf"
+    dst: "/etc/nova/nova.conf"
+    owner: "root"
+    group: "nova"
+    mode: "640"
