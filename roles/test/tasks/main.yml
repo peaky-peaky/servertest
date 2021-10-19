@@ -1,0 +1,6 @@
+---
+ - name: test config
+   block:
+   - name: test set
+     import_tasks: test.yml
+

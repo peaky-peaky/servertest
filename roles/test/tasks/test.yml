@@ -1,0 +1,12 @@
+---
+- name: Creating an empty file
+  file:
+    path: "~/testfile"
+    state: touch
+
+- name: Compile file
+  lineinfile: dest=~/testfile
+              line="{{item.line}}"
+  with_items:
+    - { line: 'This is the test' }
+    - { line: 'You need to delete thie file after test' }   

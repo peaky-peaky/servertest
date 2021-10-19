@@ -1,5 +1,5 @@
 ---
-- hosts: test
+- hosts: testvm
   become: yes
   vars:
     http_port: 80

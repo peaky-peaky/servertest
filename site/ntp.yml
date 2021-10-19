@@ -1,0 +1,6 @@
+---
+- name: config ntp
+  become: yes
+  hosts: all
+  roles:
+    - ntp
