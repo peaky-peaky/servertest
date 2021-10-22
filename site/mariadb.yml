@@ -1,0 +1,6 @@
+---
+- name: config mariadb
+  become: yes
+  hosts: all
+  roles:
+    - mariadb

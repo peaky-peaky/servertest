@@ -1,0 +1,41 @@
+---
+- name: install mariadb
+  apt:
+    name:
+      - mariadb-server
+
+
+- name: text code config
+  replace: dest=/etc/mysql/mariadb.conf.d/50-server.cnf
+           regexp="{{item.regexp}}"
+           replace="{{item.replace}}"
+  with_items:
+    - { regexp: '^collation-server      = utf8mb4_general_ci', replace: '#collation-server      = utf8mb4_general_ci' }
+
+
+- name: restart mariadb
+  service: name=mariadb state=restarted
+
+
+- name: install needed software
+  apt:
+    name:
+      - software-properties-common 
+
+
+- name: Ensure to add repository
+  shell: add-apt-repository cloud-archive:victoria -y
+
+
+- name: apt update
+  apt:
+    update_cache: yes
+
+
+- name: apt upgrade
+  apt:
+    upgrade: yes
+
+
+- name: Update MariaDB root password
+  mysql_user: name=root  password=8

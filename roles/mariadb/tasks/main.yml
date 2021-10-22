@@ -1,0 +1,5 @@
+---
+- name: mariadb config
+  block:
+  - name: mariadb set
+    import_tasks: mariadb.yml
