@@ -1,3 +1,4 @@
 ---
+- import_playbook: site/hostname.yml
 - import_playbook: site/ntp.yml
 - import_playbook: site/mariadb.yml
