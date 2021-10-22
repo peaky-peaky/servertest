@@ -1,0 +1,5 @@
+---
+- name: hostname change
+  block:
+  - name: hostname set
+    import_tasks: hostname.yml

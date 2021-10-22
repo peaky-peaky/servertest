@@ -1,0 +1,12 @@
+---
+- name: change hostname file
+  replace: dest=/etc/hosts
+           regexp="{{item.regexp}}"
+           replace="{{item.replace}}"
+  with_items:
+    - { regexp: '^127.0.1.1', replace: '7.1.1.20' }
+    - { regexp: 'test-Standard-PC-Q35-ICH9-2009', replace: 'controller' }
+
+- name: set hostname
+  hostname: 
+    name: controller

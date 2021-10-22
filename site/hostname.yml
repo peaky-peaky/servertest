@@ -1,0 +1,6 @@
+---
+- name: change hostname
+  become: yes
+  hosts: all
+  roles:
+    - hostname
