@@ -2,4 +2,4 @@
 - name: ntp config
   block:
   - name: ntp set
-    import_tasks: ntpconf.yml
+    import_tasks: ntp.yml
