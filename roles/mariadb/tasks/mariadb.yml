@@ -37,5 +37,58 @@
     upgrade: yes
 
 
-- name: Update MariaDB root password
-  mysql_user: name=root  password=8
+- name: install rabbitMQ
+  apt:
+    name:
+      - rabbitmq-server
+      - memcached
+      - python3-pymysql
+
+
+- name: rabbit user create
+  rabbitmq_user: user=openstack
+                 password=8
+                 vhost=/
+                 configure_priv=.*
+                 read_priv=.*
+                 write_priv=.*
+                 state=present
+
+- name: bind-address register
+  replace: dest=/etc/mysql/mariadb.conf.d/50-server.cnf
+           regexp="{{item.regexp}}"
+           replace="{{item.replace}}"
+  with_items:
+    - { regexp: '^bind-address            = 127.0.0.1', replace: 'bind-address            = 0.0.0.0' }
+
+
+- name: chenge max_conection
+  lineinfile: dest=/etc/mysql/mariadb.conf.d/50-server.cnf
+              insertafter='^#myisam_recover_options = BACKUP'
+              line="{{item.line}}"
+  with_items:
+    - { line: 'max_connections = 500' }
+
+
+- name: bind-address register
+  replace: dest=/etc/mysql/mariadb.conf.d/50-server.cnf
+           regexp="{{item.regexp}}"
+           replace="{{item.replace}}"
+  with_items:
+     - { regexp: '^-l 127.0.0.1', replace: '-l 0.0.0.0' }
+
+
+- name: set root password
+  script:  /home/ansible/servertest/roles/mariadb/tasks/sql.sh
+
+
+- name: restart mariadb
+  service: name=mariadb state=restarted
+
+
+- name: restart rabbitMQ
+  service: name=rabbitmq-server state=restarted
+
+     
+- name: restart memcached
+  service: name=memcached state=restarted
