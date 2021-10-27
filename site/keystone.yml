@@ -1,0 +1,6 @@
+---
+- name: config keystone
+  become: yes
+  hosts: all
+  roles:
+    - keystone

@@ -1,0 +1,5 @@
+---
+- name: keystone config
+  block:
+  - name: keystone set
+    import_tasks: keystone.yml
