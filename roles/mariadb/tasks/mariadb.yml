@@ -78,9 +78,14 @@
      - { regexp: '^-l 127.0.0.1', replace: '-l 0.0.0.0' }
 
 
+- name: install expext
+  apt:
+    name:
+      - expect
+
 - name: set root password
   script:  /home/ansible/servertest/roles/mariadb/tasks/sql.sh
-
+  
 
 - name: restart mariadb
   service: name=mariadb state=restarted
@@ -92,3 +97,11 @@
      
 - name: restart memcached
   service: name=memcached state=restarted
+
+
+#- name: create dummy db
+  #mysql_db: name=test state=present 
+
+
+- name: create keystone user
+  script: /home/ansible/servertest/roles/mariadb/tasks/sql.sh 
