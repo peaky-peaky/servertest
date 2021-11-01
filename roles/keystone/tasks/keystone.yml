@@ -1,6 +1,6 @@
 ---
 - name: create keystone user
-  script: /home/ansible/servertest/roles/mariadb/tasks/sql.sh
+  script: /root/servertest/roles/mariadb/tasks/sql.sh
 
 
 - name: install keystone component
@@ -19,14 +19,9 @@
 
 
 - name: keystone config backup
-  command: mv /etc/keystone/keystone.conf /etc/keystone/keystone.conf.org
+  command: cp /etc/keystone/keystone.conf /etc/keystone/keystone.conf.org
   when: file_stat.stat.exists
 
-
-- name: basic keystone-configuration
-  copy:
-    src: "/etc/keystone/keystone.conf"
-    dest: "/etc/keystone/keystone.conf"
 
 
 - name: check portnum-5000
@@ -69,10 +64,10 @@
   service: name=apache2 state=restarted
 
 
-- name: compile keystone var export file
-  copy:
-    src: "/home/ansible/servertest/roles/keystone/tasks/keystonerc"
-    dest: "~/keystonerc"
+#- name: compile keystone var export file
+ # copy:
+  #  src: "/home/ansible/servertest/roles/keystone/tasks/keystonerc"
+   # dest: "~/keystonerc"
 
 
 - name: change access auth
@@ -87,17 +82,3 @@
 
 - name: export environmental variables2
   command: echo $(<~/keystonerc) >> ~/.bash_profile
-
-
-- name: check service user
-  command: /usr/bin/openstack server list
-  register: service_user_check
-
-
-- name: create openstack project
-  os_project:
-    name: service
-    enabled: True
-    domain_id: default
-    description: Service Project
-  when: "'service' not in service_user_check.stdout"

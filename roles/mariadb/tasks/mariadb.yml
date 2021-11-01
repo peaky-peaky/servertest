@@ -84,7 +84,7 @@
       - expect
 
 - name: set root password
-  script:  /home/ansible/servertest/roles/mariadb/tasks/sql.sh
+  script:  /root/servertest/roles/mariadb/tasks/sql.sh
   
 
 - name: restart mariadb
@@ -104,4 +104,4 @@
 
 
 - name: create keystone user
-  script: /home/ansible/servertest/roles/mariadb/tasks/sql.sh 
+  script: /root/servertest/roles/mariadb/tasks/sql.sh 
