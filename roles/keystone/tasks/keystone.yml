@@ -86,4 +86,18 @@
 
 
 - name: export environmental variables2
-  command: echo "source ~/keystonerc " >> ~/.bash_profile
+  command: echo $(<~/keystonerc) >> ~/.bash_profile
+
+
+- name: check service user
+  command: /usr/bin/openstack server list
+  register: service_user_check
+
+
+- name: create openstack project
+  os_project:
+    name: service
+    enabled: True
+    domain_id: default
+    description: Service Project
+  when: "'service' not in service_user_check.stdout"
