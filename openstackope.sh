@@ -1,6 +1,6 @@
 #!/bin/bash
 
-ansible-playbook -i inventory/hosts ope.yml
+ansible-playbook -i inventory/hosts 1stope.yml
 
 openstack project list > ~/servertest/roles/keystone/tasks/prolist
 cat ~/roles/keystone/tasks/prolist | grep service
