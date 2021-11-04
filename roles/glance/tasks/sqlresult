@@ -1,0 +1,9 @@
+user	host
+glance	%
+keystone	%
+root	7.1.1.20
+root	7.1.1.9
+root	controller
+glance	localhost
+keystone	localhost
+root	localhost
