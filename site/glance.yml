@@ -1,0 +1,6 @@
+---
+- name: config glance
+  become: yes
+  hosts: all
+  roles:
+    - glance

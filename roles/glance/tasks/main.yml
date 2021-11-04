@@ -1,0 +1,5 @@
+---
+- name: glance config
+  block:
+  - name: glance set
+    import_tasks: glance.yml

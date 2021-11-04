@@ -1,0 +1,44 @@
+---
+- name: create glance user
+  script:  /root/servertest/roles/glance/tasks/glance.sh
+
+
+- name: install glance
+  apt:
+    name:
+      - glance
+
+
+- name: check portnum-9292
+  command: "ss -ltun"
+  register: command1_result
+
+
+- name: backup glance file
+  command: mv /etc/glance/glance-api.conf /etc/glance/glance-api.conf.org
+  when: "':9292' not in command1_result.stdout"
+
+
+- name: compile glance file
+  command: cp ~/servertest/roles/glance/tasks/glance-api.conf /etc/glance/glance-api.conf
+  when: "':9292' not in command1_result.stdout"
+
+
+- name: change access status
+  file:
+    path: /etc/glance/glance-api.conf
+    state: file
+    owner: root
+    group: glance
+    mode: 0640
+  when: "':9292' not in command1_result.stdout"
+
+
+- name: Perform a glance DB sync
+  command: su -s /bin/bash glance -c "glance-manage db_sync"
+  when: "':9292' not in command1_result.stdout"
+
+
+- name:	restart glance
+  service: name=glance-api state=restarted
+  when: "':9292' not in command1_result.stdout"
