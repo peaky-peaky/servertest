@@ -1,9 +1,17 @@
 user	host
 glance	%
 keystone	%
+nova	%
+nova_api	%
+nova_cell0	%
+placement	%
 root	7.1.1.20
 root	7.1.1.9
 root	controller
 glance	localhost
 keystone	localhost
+nova	localhost
+nova_api	localhost
+nova_cell0	localhost
+placement	localhost
 root	localhost

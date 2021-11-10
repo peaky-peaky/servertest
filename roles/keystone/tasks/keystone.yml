@@ -13,6 +13,14 @@
      - python3-oauth2client
 
 
+- name: cpmpile language apache2
+  replace: dest=/etc/apache2/envvars
+           regexp="{{item.regexp}}"
+           replace="{{item.replace}}"
+  with_items:
+    - { regexp: '^export LANG=C', replace: 'export LANG="en_US.UTF-8"' }
+
+
 - name: /tmp/stat_test.txtのstatusを取得
   stat: path=/etc/keystone/keystone.conf
   register: file_stat
