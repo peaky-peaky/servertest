@@ -1,0 +1,80 @@
+---
+- name: create  novauser
+  script: /root/servertest/roles/novauser/tasks/novauser.sh
+
+
+- name: install nova component
+  apt:
+    name:
+      - nova-api
+      - nova-conductor
+      - nova-scheduler
+      - nova-novncproxy
+      - placement-api
+      - python3-novaclient
+
+
+- name: nova.confのstatusを取得
+  stat: path=/etc/nova/nova.conf
+  register: nova_conf_stat
+
+
+- name: nova config backup
+  command: mv /etc/nova/nova.conf /etc/nova/nova.conf.org
+  when: nova_conf_stat.stat.exists
+
+
+- name: copy nova config
+  command: cp ~/servertest/roles/novauser/tasks/nova.conf /etc/nova/
+
+
+- name: change access auth
+  file:
+    path: /etc/nova/nova.conf
+    mode: 0640
+    group: nova
+
+
+- name: placement.confのstatusを取得
+  stat: path=/etc/placement/placement.conf
+  register: placement_conf_stat
+
+
+- name: placement config backup
+  command: mv /etc/placement/placement.conf /etc/placement/placement.conf.org
+  when: placement_conf_stat.stat.exists
+
+
+- name: copy placement config
+  command: cp ~/servertest/roles/novauser/tasks/placement.conf /etc/placement/
+
+
+- name: change access auth
+  file:
+    path: /etc/placement/placement.conf
+    mode: 0640
+    group: placement
+
+
+- name: add-novauser to db
+  script: /root/servertest/roles/novauser/tasks/nova-compute.sh
+
+
+- name: restart apache2
+  service: name=apache2 state=restarted
+
+
+- name: restart nova-conductor
+  service: name=nova-conductor state=restarted
+
+
+- name: restart nova-scheduler
+  service: name=nova-scheduler state=restarted
+
+
+- name: restart nova-novncproxy
+  service: name=nova-novncproxy state=restarted
+
+
+#- name: record compute-service
+#  command: openstack compute service list > /root/servertest/roles/novauser/tasks/nova-result

@@ -1,0 +1,5 @@
+---
+- name: novauser config
+  block:
+  - name: novauser set
+    import_tasks: novauser.yml

@@ -2,7 +2,7 @@
 | ID                               | Name      |
 +----------------------------------+-----------+
 | 0624ccaa2e0e4ce2bec7872cafeb8562 | admin     |
-| 5b338e83e9874b399a6d670ff7a61fe3 | placement |
 | 2ef026e15e874db1bdf8adcf962a2675 | glance    |
-| 68b5a21b22844067b7c40f3c3ac4c267 | nova      |
+| bda85449c24546d295f7f2d8721ae46a | nova      |
+| a90b46c989064eaca1b36d30a2cb9733 | placement |
 +----------------------------------+-----------+

@@ -63,4 +63,14 @@ fi
 
 openstack user list > /root/servertest/roles/keystone/tasks/userlist
 
+
+if [ -e ~/servertest/3rdope.yml ]; then
+ ansible-playbook -i inventory/hosts 3rdope.yml
+else
+ echo "prepare3rdyamlfile"
+ exit 1
+fi
+
+openstack compute service list > /root/servertest/roles/novauser/tasks/nova-result
+
 echo "Opereation is Success!!"
