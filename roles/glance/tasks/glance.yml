@@ -9,19 +9,12 @@
       - glance
 
 
-- name: check portnum-9292
-  command: "ss -ltun"
-  register: command1_result
-
-
 - name: backup glance file
   command: mv /etc/glance/glance-api.conf /etc/glance/glance-api.conf.org
-  when: "':9292' not in command1_result.stdout"
 
 
 - name: compile glance file
   command: cp ~/servertest/roles/glance/tasks/glance-api.conf /etc/glance/glance-api.conf
-  when: "':9292' not in command1_result.stdout"
 
 
 - name: change access status
@@ -31,14 +24,17 @@
     owner: root
     group: glance
     mode: 0640
-  when: "':9292' not in command1_result.stdout"
 
+
+- name: check 8774-port
+  command: "ss -ltun"
+  register: command2_result
 
 - name: Perform a glance DB sync
   command: su -s /bin/bash glance -c "glance-manage db_sync"
-  when: "':9292' not in command1_result.stdout"
+  when: "':8774' not in command2_result.stdout"
 
 
 - name:	restart glance
   service: name=glance-api state=restarted
-  when: "':9292' not in command1_result.stdout"
+  when: "':8774' not in command1_result.stdout"
