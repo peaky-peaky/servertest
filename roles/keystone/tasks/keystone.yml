@@ -32,6 +32,10 @@
 
 
 
+- name: compile keystone.conf
+  command: cp ~/servertest/roles/keystone/tasks/keystone.conf /etc/keystone/
+
+
 - name: check portnum-5000
   command: "ss -ltun"
   register: command1_result
@@ -78,15 +82,15 @@
    # dest: "~/keystonerc"
 
 
-- name: change access auth
-  file:
-    path: ~/keystonerc
-    mode: 600
+#- name: change access auth
+#  file:
+#    path: ~/keystonerc
+#    mode: 600
 
 
-- name: export environmental variables
-  shell: bash -lc "source ~/keystonerc"
+#- name: export environmental variables
+#  shell: bash -lc "source ~/keystonerc"
 
 
-- name: export environmental variables2
-  command: echo $(<~/keystonerc) >> ~/.bash_profile
+#- name: export environmental variables2
+#  command: echo $(<~/keystonerc) >> ~/.bash_profile
