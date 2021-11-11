@@ -37,4 +37,17 @@
 
 - name:	restart glance
   service: name=glance-api state=restarted
-  when: "':8774' not in command1_result.stdout"
+  when: "':8774' not in command2_result.stdout"
+
+
+- name: install kvm
+  apt:
+    name:
+      - qemu-kvm
+      - libvirt-daemon-system
+      - libvirt-daemon
+      - virtinst
+      - bridge-utils
+      - libosinfo-bin
+      - libguestfs-tools
+      - virt-top
