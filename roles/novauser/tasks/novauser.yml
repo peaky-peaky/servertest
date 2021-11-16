@@ -56,8 +56,14 @@
     group: placement
 
 
+- name: check nova parameter
+  command: "cat /root/servertest/roles/novauser/tasks/nova-result"
+  register: check_nova_parameter
+
+
 - name: add-novauser to db
   script: /root/servertest/roles/novauser/tasks/nova-compute.sh
+  when: "'nova-' not in check_nova_parameter.stdout"
 
 
 - name: restart apache2

@@ -36,22 +36,22 @@
   command: cp ~/servertest/roles/keystone/tasks/keystone.conf /etc/keystone/
 
 
-- name: check portnum-5000
+- name: check portnum-8774
   command: "ss -ltun"
   register: command1_result
 
 
 - name: Perform a Keystone DB sync migrate
   command: su -s /bin/bash keystone -c "keystone-manage db_sync"
-  when: "':5000' not in command1_result.stdout"
+  when: "':8774' not in command1_result.stdout"
 
 - name: initialaize key
   command: keystone-manage fernet_setup --keystone-user keystone --keystone-group keystone 
-  when: "':5000' not in command1_result.stdout"
+  when: "':8774' not in command1_result.stdout"
 
 - name: initialaize key2
   command: keystone-manage credential_setup --keystone-user keystone --keystone-group keystone
-  when: "':5000' not in command1_result.stdout"
+  when: "':8774' not in command1_result.stdout"
 
 
 - name: Bootstrap keystone admin and endpoint
@@ -61,7 +61,7 @@
     --bootstrap-internal-url http://7.1.1.20:5000/v3/ \
     --bootstrap-public-url http://7.1.1.20:5000/v3/ \
     --bootstrap-region-id RegionOne
-  when: "':5000' not in command1_result.stdout"
+  when: "':8774' not in command1_result.stdout"
 
 
 - name: apache config
