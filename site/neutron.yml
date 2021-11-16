@@ -1,0 +1,6 @@
+---
+- name: config neutron
+  become: yes
+  hosts: all
+  roles:
+    - neutron

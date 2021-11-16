@@ -73,4 +73,55 @@ fi
 
 openstack compute service list > /root/servertest/roles/novauser/tasks/nova-result
 
+
+if [ -e ~/servertest/4thope.yml ]; then
+ ansible-playbook -i inventory/hosts 4thope.yml
+else
+ echo "prepare4thyamlfile"
+ exit 1
+fi
+
+openstack compute service list > /root/servertest/roles/novauser/tasks/nova-result
+
+openstack user list > /root/servertest/roles/keystone/tasks/userlist
+cat ~/servertest/roles/keystone/tasks/userlist | grep neutron
+
+if [ $? -ne 0 ]; then
+ echo "start create neutron user"
+ openstack user create --domain default --project service --password servicepassword neutron
+ openstack role add --project service --user neutron admin
+ openstack service create --name neutron --description "OpenStack Networking service" network
+ openstack endpoint create --region RegionOne network public http://7.1.1.20:9696
+ openstack endpoint create --region RegionOne network internal http://7.1.1.20:9696
+ openstack endpoint create --region RegionOne network admin http://7.1.1.20:9696
+fi
+
+openstack user list > /root/servertest/roles/keystone/tasks/userlist
+cat ~/sqlresult | grep neutron_ml2
+
+if [ $? -ne 0 ]; then
+ for i in $(cat ~/servertest/neutron-register)
+ do
+ IFS=$PREV_IFS
+ $i
+ if [ $? -eq 0 ]; then
+  echo $i "is ok"
+ else
+  echo "error.."
+  exit 1
+ fi
+ done
+fi
+
+mysql -u root -h 7.1.1.20 -e "show databases;" > ~/sqlresult
+
+if [ -e ~/servertest/5thope.yml ]; then
+ ansible-playbook -i inventory/hosts 5thope.yml
+else
+ echo "prepare5thyamlfile"
+ exit 1
+fi
+
+openstack network agent list  > /root/servertest/roles/neutron/tasks/neutron-result
+
 echo "Opereation is Success!!"

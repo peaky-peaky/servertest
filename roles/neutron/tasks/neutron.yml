@@ -1,0 +1,93 @@
+---
+- name: install neutron component
+  apt:
+    name:
+      - neutron-server
+      - neutron-plugin-ml2
+      - neutron-linuxbridge-agent
+      - neutron-l3-agent
+      - neutron-dhcp-agent
+      - neutron-metadata-agent
+      - python3-neutronclient
+
+
+- name: neutron.confのstatusを取得
+  stat: path=/etc/neutron/neutron.conf
+  register: neutron_conf_stat
+
+
+- name: neutron config backup
+  command: mv /etc/neutron/neutron.conf /etc/neutron/neutron.conf.org
+  when: neutron_conf_stat.stat.exists
+
+
+- name: copy neutron config
+  command: cp ~/servertest/roles/neutron/tasks/neutron.conf /etc/neutron/
+
+
+- name: change access auth
+  file:
+    path: /etc/neutron/neutron.conf
+    mode: 0640
+    group: neutron
+
+
+- name: copy l3_agent.ini
+  command: cp ~/servertest/roles/neutron/tasks/l3_agent.ini /etc/neutron/
+
+
+- name: copy dhcp_agent.ini
+  command: cp ~/servertest/roles/neutron/tasks/dhcp_agent.ini /etc/neutron/
+
+
+- name: copy metadata_agent.ini
+  command: cp ~/servertest/roles/neutron/tasks/metadata_agent.ini /etc/neutron/
+
+
+- name: copy metadata_agent.ini
+  command: cp ~/servertest/roles/neutron/tasks/ml2_conf.ini /etc/neutron/plugins/ml2/
+
+
+- name: copy linuxbridge_agent.ini
+  command: cp ~/servertest/roles/neutron/tasks/linuxbridge_agent.ini /etc/neutron/plugins/ml2/
+
+
+- name: check neutron parameter
+  command: "cat /root/servertest/roles/neutron/tasks/neutron-result"
+  register: check_neutron_parameter
+
+
+- name: create sympolic linc
+  command: "ln -s /etc/neutron/plugins/ml2/ml2_conf.ini /etc/neutron/plugin.ini"
+  when: "'neutron-' not in check_neutron_parameter.stdout"
+
+
+- name: neutron db-sync
+  command: "su -s /bin/bash neutron -c "neutron-db-manage --config-file /etc/neutron/neutron.conf --config-file /etc/neutron/plugin.ini upgrade head""
+  when: "'neutron-' not in check_neutron_parameter.stdout"
+
+
+- name: restart neutron
+  service: name=neutron-{{ item.name }} state=restarted
+  with_items:
+    - { name: l3-agent }
+    - { name: dhcp-agent }
+    - { name: metadata-agent }
+    - { name: linuxbridge-agent }
+
+
+- name: restart neutron
+  service: name=neutron-{{ item.name }} enabled=yes
+  with_items:
+    - { name: l3-agent }
+    - { name: dhcp-agent }
+    - { name: metadata-agent }
+    - { name: linuxbridge-agent }
+
+
+- name: restart nova-api
+  service: name=nova-api state=restarted
+
+
+- name: restart nova-compute
+  service: name=nova-compute state=restarted

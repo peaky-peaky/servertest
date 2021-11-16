@@ -1,0 +1,20 @@
+---
+- name: install nova component
+  apt:
+    name:
+      - nova-compute
+      - nova-compute-kvm
+
+
+- name: restart nova-compute
+  service: name=nova-compute state=restarted
+
+
+- name: check nova-compute
+  command: "cat /root/servertest/roles/novauser/tasks/nova-result"
+  register: check_nova_compute
+
+
+- name: node discover
+  command: su -s /bin/bash nova -c "nova-manage cell_v2 discover_hosts"
+  when: "'nova-compute' not in check_nova_compute.stdout"

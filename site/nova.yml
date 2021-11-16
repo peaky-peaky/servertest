@@ -1,0 +1,6 @@
+---
+- name: config nova
+  become: yes
+  hosts: all
+  roles:
+    - nova

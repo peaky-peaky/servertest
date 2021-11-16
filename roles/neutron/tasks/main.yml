@@ -1,0 +1,5 @@
+---
+- name: neutron config
+  block:
+  - name: neutron set
+    import_tasks: neutron.yml

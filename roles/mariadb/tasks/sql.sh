@@ -33,7 +33,6 @@ if [ $? -ne 0 ]; then
  mysql -u root -h 7.1.1.20 -e "create database keystone;"
  mysql -u root -h 7.1.1.20 -e "grant all privileges on keystone.* to keystone@'localhost' identified by 'password';"
  mysql -u root -h 7.1.1.20 -e "grant all privileges on keystone.* to keystone@'%' identified by 'password';"
- mysql -u root -h 7.1.1.20 -e "flush privileges;"
 fi
 
 mysql -u root -h 7.1.1.20 -e "show databases;" > ~/sqlresult
