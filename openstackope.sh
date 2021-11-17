@@ -24,13 +24,18 @@ openstack user list > /root/servertest/roles/keystone/tasks/userlist
 cat ~/servertest/roles/keystone/tasks/userlist | grep glance
 
 if [ $? -ne 0 ]; then
- echo "create glance user"
- openstack user create --domain default --project service --password servicepassword glance
- openstack role add --project service --user glance admin
- openstack service create --name glance --description "OpenStack Image service" image
- openstack endpoint create --region RegionOne image public http://7.1.1.20:9292
- openstack endpoint create --region RegionOne image internal http://7.1.1.20:9292
- openstack endpoint create --region RegionOne image admin http://7.1.1.20:9292
+ echo "start create glance user"
+ for g in $(cat ~/servertest/glance-user)
+ do
+ IFS=$PREV_IFS
+ `openstack $g`
+ if [ $? -eq 0 ]; then
+  echo $g "is ok"
+ else
+  echo "error.."
+  exit 1
+ fi
+ done
 fi
 
 openstack user list > /root/servertest/roles/keystone/tasks/userlist
@@ -47,19 +52,19 @@ cat ~/servertest/roles/keystone/tasks/userlist | grep nova
 
 if [ $? -ne 0 ]; then
  echo "start create nova user"
- openstack user create --domain default --project service --password servicepassword nova
- openstack role add --project service --user nova admin
- openstack user create --domain default --project service --password servicepassword placement
- openstack role add --project service --user placement admin
- openstack service create --name nova --description "OpenStack Compute service" compute
- openstack service create --name placement --description "OpenStack Compute Placement service" placement
- openstack endpoint create --region RegionOne compute public http://7.1.1.20:8774/v2.1/%\(tenant_id\)s
- openstack endpoint create --region RegionOne compute internal http://7.1.1.20:8774/v2.1/%\(tenant_id\)s
- openstack endpoint create --region RegionOne compute admin http://7.1.1.20:8774/v2.1/%\(tenant_id\)s
- openstack endpoint create --region RegionOne placement public http://7.1.1.20:8778
- openstack endpoint create --region RegionOne placement internal http://7.1.1.20:8778
- openstack endpoint create --region RegionOne placement admin http://7.1.1.20:8778
+ for n in $(cat ~/servertest/nova-user)
+ do
+ IFS=$PREV_IFS
+ `openstack $n`
+ if [ $? -eq 0 ]; then
+  echo $n "is ok"
+ else
+  echo "error.."
+  exit 1
+ fi
+ done
 fi
+
 
 openstack user list > /root/servertest/roles/keystone/tasks/userlist
 
@@ -88,24 +93,29 @@ cat ~/servertest/roles/keystone/tasks/userlist | grep neutron
 
 if [ $? -ne 0 ]; then
  echo "start create neutron user"
- openstack user create --domain default --project service --password servicepassword neutron
- openstack role add --project service --user neutron admin
- openstack service create --name neutron --description "OpenStack Networking service" network
- openstack endpoint create --region RegionOne network public http://7.1.1.20:9696
- openstack endpoint create --region RegionOne network internal http://7.1.1.20:9696
- openstack endpoint create --region RegionOne network admin http://7.1.1.20:9696
+ for j in $(cat ~/servertest/neutron-user)
+ do
+ IFS=$PREV_IFS
+ `openstack $j`
+ if [ $? -eq 0 ]; then
+  echo $j "is ok"
+ else
+  echo "error.."
+  exit 1
+ fi
+ done
 fi
 
-openstack user list > /root/servertest/roles/keystone/tasks/userlist
+mysql -u root -h 7.1.1.20 -e "show databases;" > ~/sqlresult
 cat ~/sqlresult | grep neutron_ml2
 
 if [ $? -ne 0 ]; then
  for i in $(cat ~/servertest/neutron-register)
  do
  IFS=$PREV_IFS
- `mysql -u root -h 7.1.1.20 -e $i`
+ echo ${i} | mysql -u root -h 7.1.1.20
  if [ $? -eq 0 ]; then
-  echo $i "is ok"
+  echo ${i} "is ok"
  else
   echo "error.."
   exit 1
