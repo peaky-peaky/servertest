@@ -57,13 +57,18 @@
   register: check_neutron_parameter
 
 
+- name: check symbolic link
+  command: "ls -l /etc/neutron/plugin.ini"
+  register: check_link
+
+
 - name: create sympolic linc
   command: "ln -s /etc/neutron/plugins/ml2/ml2_conf.ini /etc/neutron/plugin.ini"
-  when: "'neutron-' not in check_neutron_parameter.stdout"
+  when: "'lrwxrwxrwx' not in check_link.stdout"
 
 
 - name: neutron db-sync
-  command: "su -s /bin/bash neutron -c "neutron-db-manage --config-file /etc/neutron/neutron.conf --config-file /etc/neutron/plugin.ini upgrade head""
+  command: su -s /bin/bash neutron -c "neutron-db-manage --config-file /etc/neutron/neutron.conf --config-file /etc/neutron/plugin.ini upgrade head"
   when: "'neutron-' not in check_neutron_parameter.stdout"
 
 
@@ -76,7 +81,7 @@
     - { name: linuxbridge-agent }
 
 
-- name: restart neutron
+- name: enable neutron
   service: name=neutron-{{ item.name }} enabled=yes
   with_items:
     - { name: l3-agent }

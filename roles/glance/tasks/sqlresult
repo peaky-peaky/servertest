@@ -1,6 +1,8 @@
 user	host
 glance	%
 keystone	%
+neutron	%
+neutron_ml2	%
 nova	%
 nova_api	%
 nova_cell0	%
@@ -8,6 +10,8 @@ placement	%
 root	7.1.1.20
 glance	localhost
 keystone	localhost
+neutron	localhost
+neutron_ml2	localhost
 nova	localhost
 nova_api	localhost
 nova_cell0	localhost
