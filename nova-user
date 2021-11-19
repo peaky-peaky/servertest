@@ -3,7 +3,7 @@ role add --project service --user nova admin
 user create --domain default --project service --password servicepassword placement
 role add --project service --user placement admin
 service create --name nova compute --description "OpenStack-Compute-service"
-service create --name placement placement --description "OpenStackCompute-Placement-service"
+service create --name placement placement --description "OpenStack-Compute-Placement-service"
 endpoint create --region RegionOne compute public http://7.1.1.20:8774/v2.1/%\(tenant_id\)s
 endpoint create --region RegionOne compute internal http://7.1.1.20:8774/v2.1/%\(tenant_id\)s
 endpoint create --region RegionOne compute admin http://7.1.1.20:8774/v2.1/%\(tenant_id\)s
