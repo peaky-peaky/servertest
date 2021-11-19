@@ -30,7 +30,7 @@
 
 - name: Ensure to add repository
   shell: add-apt-repository cloud-archive:victoria -y
-  when: when: "'cloudarchive-victoria.list' not in check_vic_rep.stdout"
+  when: "'cloudarchive-victoria.list' not in check_vic_rep.stdout"
 
 
 - name: apt update
