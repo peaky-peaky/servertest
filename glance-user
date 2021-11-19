@@ -1,6 +1,6 @@
-user create --domain default --project service --password servicepassword glance
-role add --project service --user glance admin
-service create --name glance --description "OpenStack Image service" image
-endpoint create --region RegionOne image public http://7.1.1.20:9292
-endpoint create --region RegionOne image internal http://7.1.1.20:9292
-endpoint create --region RegionOne image admin http://7.1.1.20:9292
+openstack user create --domain default --project service --password servicepassword glance
+openstack role add --project service --user glance admin
+openstack service create --name glance image --description "OpenStack-Image-service"
+openstack endpoint create --region RegionOne image public http://7.1.1.20:9292
+openstack endpoint create --region RegionOne image internal http://7.1.1.20:9292
+openstack endpoint create --region RegionOne image admin http://7.1.1.20:9292

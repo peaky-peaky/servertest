@@ -28,7 +28,7 @@ if [ $? -ne 0 ]; then
  for g in $(cat ~/servertest/glance-user)
  do
  IFS=$PREV_IFS
- `openstack $g`
+ $g
  if [ $? -eq 0 ]; then
   echo $g "is ok"
  else
