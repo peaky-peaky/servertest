@@ -58,7 +58,7 @@
 
 
 - name: check symbolic link
-  command: "ls -l /etc/neutron/plugin.ini"
+  command: "ls -l /etc/neutron/"
   register: check_link
 
 

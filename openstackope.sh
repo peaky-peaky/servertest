@@ -55,7 +55,7 @@ if [ $? -ne 0 ]; then
  for n in $(cat ~/servertest/nova-user)
  do
  IFS=$PREV_IFS
- `openstack $n`
+ $n
  if [ $? -eq 0 ]; then
   echo $n "is ok"
  else
@@ -96,7 +96,7 @@ if [ $? -ne 0 ]; then
  for j in $(cat ~/servertest/neutron-user)
  do
  IFS=$PREV_IFS
- `openstack $j`
+ $j
  if [ $? -eq 0 ]; then
   echo $j "is ok"
  else
@@ -106,7 +106,7 @@ if [ $? -ne 0 ]; then
  done
 fi
 
-mysql -u root -h 7.1.1.20 -e "show databases;" > ~/sqlresult
+mysql -u root -h 7.1.1.20 -e "show databases;" > ~/servertest/roles/mariadb/tasks/sqlresult
 cat ~/sqlresult | grep neutron_ml2
 
 if [ $? -ne 0 ]; then
@@ -123,7 +123,7 @@ if [ $? -ne 0 ]; then
  done
 fi
 
-mysql -u root -h 7.1.1.20 -e "show databases;" > ~/sqlresult
+mysql -u root -h 7.1.1.20 -e "show databases;" > ~/servertest/roles/mariadb/tasks/sqlresult
 
 if [ -e ~/servertest/5thope.yml ]; then
  ansible-playbook -i inventory/hosts 5thope.yml

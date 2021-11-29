@@ -1,6 +1,6 @@
-user create --domain default --project service --password servicepassword neutron
-role add --project service --user neutron admin
-service create --name neutron network --description "OpenStack-Networking-service"
-endpoint create --region RegionOne network public http://7.1.1.20:9696
-endpoint create --region RegionOne network internal http://7.1.1.20:9696
-endpoint create --region RegionOne network admin http://7.1.1.20:9696
+openstack user create --domain default --project service --password servicepassword neutron
+openstack role add --project service --user neutron admin
+openstack service create --name neutron network --description "OpenStack-Networking-service"
+openstack endpoint create --region RegionOne network public http://7.1.1.20:9696
+openstack endpoint create --region RegionOne network internal http://7.1.1.20:9696
+openstack endpoint create --region RegionOne network admin http://7.1.1.20:9696

@@ -53,7 +53,7 @@
 
 - name: rabbit user create
   rabbitmq_user: user=openstack
-                 password=8
+                 password=password
                  vhost=/
                  configure_priv=.*
                  read_priv=.*
@@ -77,7 +77,7 @@
 
 
 - name: bind-address register
-  replace: dest=/etc/mysql/mariadb.conf.d/50-server.cnf
+  replace: dest=/etc/memcached.conf
            regexp="{{item.regexp}}"
            replace="{{item.replace}}"
   with_items:
