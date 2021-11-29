@@ -30,10 +30,10 @@ apt -y install ifenslave
 ssh root@7.1.1.20
 ansible -i inventory/hosts all -m ping
 source keystonerc
-sed -i s/# set linenumbers/set linenumbers/g /etc/nanorc
-sed -i  s/[a-z]*//g  ~/servertest/roles/keystone/tasks/prolist | sed -i  s/[0-9]*//g  ~/servertest/roles/keystone/tasks/prolist | sed -i  s/[A-Z]*//g  ~/servertest/roles/keystone/tasks/prolist | sed -i  s/-*//g  ~/servertest/roles/keystone/tasks/prolist | sed -i  s/+*//g  ~/servertest/roles/keystone/tasks/prolist | sed -i  s/|*//g  ~/servertest/roles/keystone/tasks/prolist
-sed -i  s/[a-z]*//g  ~/servertest/roles/keystone/tasks/userlist | sed -i  s/[0-9]*//g  ~/servertest/roles/keystone/tasks/userlist | sed -i  s/[A-Z]*//g  ~/servertest/roles/keystone/tasks/userlist | sed -i  s/-*//g  ~/servertest/roles/keystone/tasks/userlist | sed -i  s/+*//g  ~/servertest/roles/keystone/tasks/userlist | sed -i  s/|*//g  ~/servertest/roles/keystone/tasks/userlist
-sed -i  s/[a-z]*//g  ~/servertest/roles/keystone/tasks/~sqlresult | sed -i  s/[0-9]*//g  ~/servertest/roles/keystone/tasks/~sqlresult | sed -i  s/[A-Z]*//g  ~/servertest/roles/keystone/tasks/~sqlresult | sed -i  s/-*//g  ~/servertest/roles/keystone/tasks/~sqlresult | sed -i  s/+*//g  ~/servertest/roles/keystone/tasks/~sqlresult | sed -i  s/|*//g  ~/servertest/roles/keystone/tasks/~sqlresult
+sed -i 's/# set linenumbers/set linenumbers/g' /etc/nanorc
+sed -i  s/[a-z]*//g  ~/servertest/roles/keystone/tasks/prolist | sed -i  s/[0-9]*//g  ~/servertest/roles/keystone/tasks/prolist | sed -i  s/[A-Z]*//g  ~/servertest/roles/keystone/tasks/prolist | sed -i  s/-*//g  ~/servertest/roles/keystone/tasks/prolist | sed -i  s/+*//g  ~/servertest/roles/keystone/tasks/prolist | sed -i  's/|*//g'  ~/servertest/roles/keystone/tasks/prolist
+sed -i  s/[a-z]*//g  ~/servertest/roles/keystone/tasks/userlist | sed -i  s/[0-9]*//g  ~/servertest/roles/keystone/tasks/userlist | sed -i  s/[A-Z]*//g  ~/servertest/roles/keystone/tasks/userlist | sed -i  s/-*//g  ~/servertest/roles/keystone/tasks/userlist | sed -i  s/+*//g  ~/servertest/roles/keystone/tasks/userlist | sed -i  's/|*//g'  ~/servertest/roles/keystone/tasks/userlist
+sed -i  s/[a-z]*//g  ~/servertest/roles/keystone/tasks/sqlresult | sed -i  s/[0-9]*//g  ~/servertest/roles/keystone/tasks/sqlresult | sed -i  s/[A-Z]*//g  ~/servertest/roles/keystone/tasks/sqlresult | sed -i  s/-*//g  ~/servertest/roles/keystone/tasks/sqlresult | sed -i  s/+*//g  ~/servertest/roles/keystone/tasks/sqlresult | sed -i 's/|*//g'  ~/servertest/roles/keystone/tasks/sqlresult
 
 
 
