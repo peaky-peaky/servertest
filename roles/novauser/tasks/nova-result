@@ -1,6 +1,0 @@
-+----+----------------+------------+----------+---------+-------+------------+
-| ID | Binary         | Host       | Zone     | Status  | State | Updated At |
-+----+----------------+------------+----------+---------+-------+------------+
-|  1 | nova-conductor | controller | internal | enabled | down  | None       |
-|  2 | nova-scheduler | controller | internal | enabled | down  | None       |
-+----+----------------+------------+----------+---------+-------+------------+

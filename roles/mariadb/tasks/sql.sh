@@ -1,6 +1,6 @@
 #!/bin/bash
 
-cat ~/sqluser | grep 7.1.1.20
+cat ~/servertest/roles/mariadb/tasks/sqluser | grep 7.1.1.20
 
 if [ $? -ne 0 ]; then
  expect -c '
@@ -25,8 +25,8 @@ if [ $? -ne 0 ]; then
  systemctl restart mysql
 fi
 
-mysql -u root -h 7.1.1.20 -e "SELECT user, host FROM mysql.user;" > ~/sqluser
-mysql -u root -h 7.1.1.20 -e "show databases;" > ~/sqlresult
+mysql -u root -h 7.1.1.20 -e "SELECT user, host FROM mysql.user;" > ~/servertest/roles/mariadb/tasks/sqluser
+mysql -u root -h 7.1.1.20 -e "show databases;" > ~/servertest/roles/mariadb/tasks/sqlresult
 cat ~/sqlresult | grep keystone
 
 if [ $? -ne 0 ]; then
@@ -35,4 +35,4 @@ if [ $? -ne 0 ]; then
  mysql -u root -h 7.1.1.20 -e "grant all privileges on keystone.* to keystone@'%' identified by 'password';"
 fi
 
-mysql -u root -h 7.1.1.20 -e "show databases;" > ~/sqlresult
+mysql -u root -h 7.1.1.20 -e "show databases;" > ~/servertest/roles/mariadb/tasks/sqlresult

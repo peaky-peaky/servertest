@@ -1,5 +1,5 @@
 ---
-- name: install nova component
+- name: install nova-compute component
   apt:
     name:
       - nova-compute
