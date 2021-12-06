@@ -3,5 +3,8 @@ glance
 information_schema
 keystone
 mysql
+nova
+nova_api
+nova_cell0
 performance_schema
 placement

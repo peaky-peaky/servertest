@@ -21,7 +21,7 @@ if [ $? -ne 0 ]; then
 
  mysql -u root -h localhost -e "CREATE USER root@7.1.1.20;"
  mysql -u root -h localhost -e "GRANT ALL PRIVILEGES ON *.* to root@7.1.1.20 WITH GRANT OPTION;"
- cp ~/servertest/roles/mariadb/tasks/.my.cnf ~/
+ #cp ~/servertest/roles/mariadb/tasks/.my.cnf ~/
  systemctl restart mysql
 fi
 
