@@ -76,6 +76,7 @@ else
  exit 1
 fi
 
+sleep 25
 openstack compute service list > /root/servertest/roles/novauser/tasks/nova-result
 
 
@@ -106,14 +107,14 @@ if [ $? -ne 0 ]; then
  done
 fi
 
-mysql -u root -h 7.1.1.20 -e "show databases;" > ~/servertest/roles/mariadb/tasks/sqlresult
+mysql -u root -h localhost -e "show databases;" > ~/servertest/roles/mariadb/tasks/sqlresult
 cat ~/sqlresult | grep neutron_ml2
 
 if [ $? -ne 0 ]; then
  for i in $(cat ~/servertest/neutron-register)
  do
  IFS=$PREV_IFS
- echo ${i} | mysql -u root -h 7.1.1.20
+ echo ${i} | mysql -u root -h localhost
  if [ $? -eq 0 ]; then
   echo ${i} "is ok"
  else
@@ -123,7 +124,7 @@ if [ $? -ne 0 ]; then
  done
 fi
 
-mysql -u root -h 7.1.1.20 -e "show databases;" > ~/servertest/roles/mariadb/tasks/sqlresult
+mysql -u root -h localhost -e "show databases;" > ~/servertest/roles/mariadb/tasks/sqlresult
 
 if [ -e ~/servertest/5thope.yml ]; then
  ansible-playbook -i inventory/hosts 5thope.yml
