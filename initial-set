@@ -1,5 +1,18 @@
 ◆ansible base set
 
+
+        
+        
+◆virt-manager;
+sudo su -
+systemctl enable serial-getty@ttyS0.service
+systemctl start serial-getty@ttyS0.service
+
+virsh console ubuntu20.04
+
+sudo su -
+passwd root
+
 nano /etc/netplan/01-network-manager-all.yaml 
 network:
   version: 2
@@ -13,8 +26,6 @@ network:
       nameservers:
         addresses: [8.8.8.8]
 
-sudo su -
-passwd root
 apt update
 apt -y install ssh
 sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/g' /etc/ssh/sshd_config
@@ -26,7 +37,6 @@ cd servertest
 git config --global user.email azure84ro@gmail.com
 git config --global user.name peaky-peaky
 apt -y install sshpass
-apt -y install ifenslave
 ssh root@7.1.1.20
 ansible -i inventory/hosts all -m ping
 source keystonerc
@@ -34,7 +44,13 @@ sed -i 's/# set linenumbers/set linenumbers/g' /etc/nanorc
 sed -i  s/[a-z]*//g  ~/servertest/roles/keystone/tasks/prolist | sed -i  s/[0-9]*//g  ~/servertest/roles/keystone/tasks/prolist | sed -i  s/[A-Z]*//g  ~/servertest/roles/keystone/tasks/prolist | sed -i  s/-*//g  ~/servertest/roles/keystone/tasks/prolist | sed -i  s/+*//g  ~/servertest/roles/keystone/tasks/prolist | sed -i  's/|*//g'  ~/servertest/roles/keystone/tasks/prolist
 sed -i  s/[a-z]*//g  ~/servertest/roles/keystone/tasks/userlist | sed -i  s/[0-9]*//g  ~/servertest/roles/keystone/tasks/userlist | sed -i  s/[A-Z]*//g  ~/servertest/roles/keystone/tasks/userlist | sed -i  s/-*//g  ~/servertest/roles/keystone/tasks/userlist | sed -i  s/+*//g  ~/servertest/roles/keystone/tasks/userlist | sed -i  's/|*//g'  ~/servertest/roles/keystone/tasks/userlist
 sed -i  s/[a-z]*//g  ~/servertest/roles/keystone/tasks/sqlresult | sed -i  s/[0-9]*//g  ~/servertest/roles/keystone/tasks/sqlresult | sed -i  s/[A-Z]*//g  ~/servertest/roles/keystone/tasks/sqlresult | sed -i  s/-*//g  ~/servertest/roles/keystone/tasks/sqlresult | sed -i  s/+*//g  ~/servertest/roles/keystone/tasks/sqlresult | sed -i 's/|*//g'  ~/servertest/roles/keystone/tasks/sqlresult
-for i in nova nova_cell0 placement nova_api; do mysql -u root -h localhost -e "drop database ${i};"; done
+
+nano /etc/ansible/ansible.cfg
+interpreter_python=/usr/bin/python3
+roles_path = /root/servertest/roles
+
+■if needed;
+for i in nova nova_cell0 placement nova_api; do mysql -u root -h localhost -e "drop database ${i};"; do
 for i in nova nova_cell0 placement nova_api; do mysql -u root -h localhost -e "drop user ${i}@localhost;"; done
 for i in nova nova_cell0 placement nova_api; do mysql -u root -h localhost -e "drop user ${i}@'%';"; done
 for i in neutron_ml2 ; do mysql -u root -h localhost -e "drop database ${i};"; done
@@ -43,8 +59,3 @@ for i in neutron_ml2 ; do mysql -u root -h localhost -e "drop user ${i}@'%';"; d
 
 
 
-
-
-nano /etc/ansible/ansible.cfg
-interpreter_python=/usr/bin/python3
-roles_path = /root/servertest/roles
