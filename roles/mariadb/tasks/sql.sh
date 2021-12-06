@@ -1,6 +1,6 @@
 #!/bin/bash
 
-cat ~/servertest/roles/mariadb/tasks/sqluser | grep 7.1.1.20
+cat ~/servertest/roles/mariadb/tasks/sqluser | grep root
 
 if [ $? -ne 0 ]; then
  expect -c '
@@ -19,20 +19,18 @@ if [ $? -ne 0 ]; then
      send "y\n";
      interact;'
 
- mysql -u root -h localhost -e "CREATE USER root@7.1.1.20;"
- mysql -u root -h localhost -e "GRANT ALL PRIVILEGES ON *.* to root@7.1.1.20 WITH GRANT OPTION;"
  #cp ~/servertest/roles/mariadb/tasks/.my.cnf ~/
  systemctl restart mysql
 fi
 
-mysql -u root -h 7.1.1.20 -e "SELECT user, host FROM mysql.user;" > ~/servertest/roles/mariadb/tasks/sqluser
-mysql -u root -h 7.1.1.20 -e "show databases;" > ~/servertest/roles/mariadb/tasks/sqlresult
+mysql -u root -h localhost -e "SELECT user, host FROM mysql.user;" > ~/sqluser
+mysql -u root -h localhost -e "show databases;" > ~/sqlresult
 cat ~/sqlresult | grep keystone
 
 if [ $? -ne 0 ]; then
- mysql -u root -h 7.1.1.20 -e "create database keystone;"
- mysql -u root -h 7.1.1.20 -e "grant all privileges on keystone.* to keystone@'localhost' identified by 'password';"
- mysql -u root -h 7.1.1.20 -e "grant all privileges on keystone.* to keystone@'%' identified by 'password';"
+ mysql -u root -h localhost -e "create database keystone;"
+ mysql -u root -h localhost -e "grant all privileges on keystone.* to keystone@'localhost' identified by 'password';"
+ mysql -u root -h localhost -e "grant all privileges on keystone.* to keystone@'%' identified by 'password';"
 fi
 
-mysql -u root -h 7.1.1.20 -e "show databases;" > ~/servertest/roles/mariadb/tasks/sqlresult
+mysql -u root -h localhost -e "show databases;" > ~/sqlresult

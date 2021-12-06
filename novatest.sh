@@ -42,6 +42,7 @@ if [ $? -ne 0 ]; then
  mysql -u root -h localhost -e "grant all privileges on nova_cell0.* to nova_cell0@'localhost' identified by 'password';"
  sleep 3
  mysql -u root -h localhost -e "grant all privileges on nova_cell0.* to nova_cell0@'%' identified by 'password';"
+ mysql -u root -h localhost -e "flush privileges;"
 fi
 
 mysql -u root -h localhost -e "show databases;" > ~/sqlresult
