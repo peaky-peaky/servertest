@@ -1,8 +1,4 @@
 ---
-- name: stop nova-api
-  service: name=nova-api state=stopped
-
-
 - name: stop nova-conductor
   service: name=nova-conductor state=stopped
 
@@ -13,6 +9,10 @@
 
 - name: stop nova-novncproxy
   service: name=nova-novncproxy state=stopped
+
+
+- name: stop nova-api
+  service: name=nova-api state=stopped
 
 
 - name: install nova-compute component

@@ -76,7 +76,7 @@ else
  exit 1
 fi
 
-sleep 25
+sleep 12
 openstack compute service list > /root/servertest/roles/novauser/tasks/nova-result
 
 
@@ -87,7 +87,7 @@ else
  exit 1
 fi
 
-sleep 20
+sleep 12
 openstack compute service list > /root/servertest/roles/novauser/tasks/nova-result
 
 for service in api conductor scheduler novncproxy
@@ -117,17 +117,7 @@ mysql -u root -h localhost -e "show databases;" > ~/servertest/roles/mariadb/tas
 cat ~/sqlresult | grep neutron_ml2
 
 if [ $? -ne 0 ]; then
- for i in $(cat ~/servertest/neutron-register)
- do
- IFS=$PREV_IFS
- $i
- if [ $? -eq 0 ]; then
-  echo ${i} "is ok"
- else
-  echo "error.."
-  exit 1
- fi
- done
+ sh ~/servertest/neutron-register.sh
 fi
 
 mysql -u root -h localhost -e "show databases;" > ~/servertest/roles/mariadb/tasks/sqlresult
