@@ -70,6 +70,10 @@
   service: name=apache2 state=restarted
 
 
+- name: restart nova-api
+  service: name=nova-api state=restarted
+
+
 - name: restart nova-conductor
   service: name=nova-conductor state=restarted
 
@@ -80,7 +84,3 @@
 
 - name: restart nova-novncproxy
   service: name=nova-novncproxy state=restarted
-
-
-- name: record compute-service
-  command: openstack compute service list > /root/servertest/roles/novauser/tasks/nova-result

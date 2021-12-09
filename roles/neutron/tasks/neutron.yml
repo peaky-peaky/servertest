@@ -67,9 +67,42 @@
   when: "'lrwxrwxrwx' not in check_link.stdout"
 
 
+- name: restart nova-api
+  service: name=nova-api state=restarted
+
+
+- name: restart nova-conductor
+  service: name=nova-conductor state=restarted
+
+
+- name: restart nova-scheduler
+  service: name=nova-scheduler state=restarted
+
+
+- name: restart nova-novncproxy
+  service: name=nova-novncproxy state=restarted
+
+
 - name: neutron db-sync
   command: su -s /bin/bash neutron -c "neutron-db-manage --config-file /etc/neutron/neutron.conf --config-file /etc/neutron/plugin.ini upgrade head"
   when: "'neutron-' not in check_neutron_parameter.stdout"
+
+
+- name: stop nova-api
+  service: name=nova-api state=stopped
+
+
+- name: stop nova-conductor
+  service: name=nova-conductor state=stopped
+
+
+- name: stop nova-scheduler
+  service: name=nova-scheduler state=stopped
+
+
+- name: stop nova-novncproxy
+  service: name=nova-novncproxy state=stopped
+
 
 
 - name: restart neutron
@@ -90,9 +123,17 @@
     - { name: linuxbridge-agent }
 
 
-- name: restart nova-api
+- name: restart nova-api2
   service: name=nova-api state=restarted
 
 
-- name: restart nova-compute
-  service: name=nova-compute state=restarted
+- name: restart nova-conductor2
+  service: name=nova-conductor state=restarted
+
+
+- name: restart nova-scheduler2
+  service: name=nova-scheduler state=restarted
+
+
+- name: restart nova-novncproxy2
+  service: name=nova-novncproxy state=restarted

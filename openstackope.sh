@@ -87,7 +87,13 @@ else
  exit 1
 fi
 
+sleep 20
 openstack compute service list > /root/servertest/roles/novauser/tasks/nova-result
+
+for service in api conductor scheduler novncproxy
+do
+systemctl stop nova-$service
+done
 
 openstack user list > /root/servertest/roles/keystone/tasks/userlist
 cat ~/servertest/roles/keystone/tasks/userlist | grep neutron
@@ -114,6 +120,7 @@ if [ $? -ne 0 ]; then
  for i in $(cat ~/servertest/neutron-register)
  do
  IFS=$PREV_IFS
+ $i
  if [ $? -eq 0 ]; then
   echo ${i} "is ok"
  else
@@ -133,5 +140,10 @@ else
 fi
 
 openstack network agent list  > /root/servertest/roles/neutron/tasks/neutron-result
+
+for service in api conductor scheduler novncproxy
+do
+systemctl stop nova-$service
+done
 
 echo "Opereation is Success!!"
