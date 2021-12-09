@@ -1,9 +1,8 @@
 +----------------------------------+-----------+
 | ID                               | Name      |
 +----------------------------------+-----------+
-| b279ebf29e014f2bbaf4472c537d6d1d | admin     |
-| bdd9f1434d8349f9898d84ca41395651 | glance    |
-| d074b3cef6df4979acf3be265a341f52 | nova      |
-| 0e3a956c6095459c8ca7129df9182e6e | placement |
-| 500c70819bd04feb9b57b36274580620 | neutron   |
+| 0017b5a5ab6d49d796238c142e341233 | admin     |
+| 38ae2e9fbbe4432da9127e5bd360b6f9 | glance    |
+| 2bbe2abf95484e3d8e3d4be8a5b54d52 | nova      |
+| 5ade28f63e164724af92f08c2486b0c7 | placement |
 +----------------------------------+-----------+

@@ -28,6 +28,7 @@
 
 - name: check kvm
   command: "systemctl status qemu-kvm.service"
+  ignore_errors: yes
   register: command2_result
 
 - name: Perform a glance DB sync
