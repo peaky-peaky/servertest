@@ -26,18 +26,18 @@
     mode: 0640
 
 
-- name: check 8774-port
-  command: "ss -ltun"
+- name: check kvm
+  command: "systemctl status qemu-kvm.service"
   register: command2_result
 
 - name: Perform a glance DB sync
   command: su -s /bin/bash glance -c "glance-manage db_sync"
-  when: "':8774' not in command2_result.stdout"
+  when: "'Active: active' not in command2_result.stdout"
 
 
 - name:	restart glance
   service: name=glance-api state=restarted
-  when: "':8774' not in command2_result.stdout"
+  when: "'Active: active' not in command2_result.stdout"
 
 
 - name: install kvm

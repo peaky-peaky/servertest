@@ -114,7 +114,6 @@ if [ $? -ne 0 ]; then
  for i in $(cat ~/servertest/neutron-register)
  do
  IFS=$PREV_IFS
- echo ${i} | mysql -u root -h localhost
  if [ $? -eq 0 ]; then
   echo ${i} "is ok"
  else

@@ -3,7 +3,6 @@ glance
 information_schema
 keystone
 mysql
-neutron_ml2
 nova
 nova_api
 nova_cell0

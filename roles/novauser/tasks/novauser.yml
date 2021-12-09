@@ -82,5 +82,5 @@
   service: name=nova-novncproxy state=restarted
 
 
-#- name: record compute-service
-#  command: openstack compute service list > /root/servertest/roles/novauser/tasks/nova-result
+- name: record compute-service
+  command: openstack compute service list > /root/servertest/roles/novauser/tasks/nova-result

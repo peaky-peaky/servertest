@@ -17,4 +17,16 @@
 
 - name: node discover
   command: su -s /bin/bash nova -c "nova-manage cell_v2 discover_hosts"
-  when: "'nova-compute' not in check_nova_compute.stdout"
+  when: "'nova-compute' in check_nova_compute.stdout"
+
+
+- name: restart nova-conductor
+  service: name=nova-conductor state=stopped
+
+
+- name: restart nova-scheduler
+  service: name=nova-scheduler state=stopped
+
+
+- name: restart nova-novncproxy
+  service: name=nova-novncproxy state=stopped
