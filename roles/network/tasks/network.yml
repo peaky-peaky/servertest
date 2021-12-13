@@ -1,0 +1,17 @@
+---
+- name: network restart
+  service: name=systemd-networkd  state=restarted
+
+
+- name: change physnet interface
+  replace: dest=/etc/neutron/plugins/ml2/linuxbridge_agent.ini
+           regexp="{{item.regexp}}"
+           replace="{{item.replace}}"
+  with_items:
+  - { regexp: '^physical_interface_mappings = physnet1:enp1s0', replace: 'physical_interface_mappings = physnet1:ens40' }
+
+
+- name: neutron-linuxbridge-agent restart
+  service: name=neutron-linuxbridge-agent   state=restarted
+
+

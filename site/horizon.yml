@@ -1,0 +1,6 @@
+---
+- name: config horizon
+  become: yes
+  hosts: all
+  roles:
+    - horizon

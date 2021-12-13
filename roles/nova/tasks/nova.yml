@@ -27,7 +27,7 @@
 
 
 - name: check nova-compute
-  command: "cat /root/servertest/roles/novauser/tasks/nova-result"
+  command: "cat /root/openstackope/roles/novauser/tasks/nova-result"
   register: check_nova_compute
 
 

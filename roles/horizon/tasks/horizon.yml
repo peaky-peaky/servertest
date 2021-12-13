@@ -1,0 +1,28 @@
+---
+- name: install openstack-dashboard
+  apt:
+    name:
+      - openstack-dashboard
+
+
+- name: compile local_settings.py
+  command: cp ~/openstackope/roles/horizon/tasks/local_settings.py /etc/openstack-dashboard/
+
+
+- name: restart apache2
+  service: name=apache2 state=restarted
+
+
+- name: compile policy.json
+  command: cp ~/openstackope/roles/horizon/tasks/policy.json /etc/nova/
+
+
+- name: change access auth
+  file:
+    path: /etc/nova/policy.json 
+    mode: 0640
+    group: nova
+
+
+- name: restart nova-api
+  service: name=nova-api state=restarted

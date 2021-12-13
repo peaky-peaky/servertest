@@ -1,0 +1,7 @@
+---
+- name: openstackHV config
+  block:
+  - name: openstackHV set
+    import_tasks: kvm.yml
+    import_tasks: openstack_repository.yml
+    import_tasks: nova.yml

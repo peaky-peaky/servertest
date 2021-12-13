@@ -3,4 +3,4 @@ PREV_IFS=$IFS
 IFS="
 "
 
-sh ~/servertest/neutron-register.sh
+sh ~/openstackope/neutron-register.sh

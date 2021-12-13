@@ -7,7 +7,7 @@ IFS="
 cat ~/sqlresult | grep neutron_ml2
 
 if [ $? -ne 0 ]; then
- for i in $(cat ~/servertest/neutron-register)
+ for i in $(cat ~/openstackope/neutron-register)
  do
  IFS=$PREV_IFS
  echo ${i} | mysql -u root -h 7.1.1.20

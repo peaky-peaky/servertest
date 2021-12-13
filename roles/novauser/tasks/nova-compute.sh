@@ -1,6 +1,6 @@
 #!/bin/bash
 
-cat ~/servertest/roles/novauser/tasks/nova-result | grep nova-conductor
+cat ~/openstackope/roles/novauser/tasks/nova-result | grep nova-conductor
 
 if [ $? -ne 0 ]; then
   su -s /bin/bash placement -c "placement-manage db sync"

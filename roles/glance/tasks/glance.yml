@@ -1,6 +1,6 @@
 ---
 - name: create glance user
-  script:  /root/servertest/roles/glance/tasks/glance.sh
+  script:  /root/openstackope/roles/glance/tasks/glance.sh
 
 
 - name: install glance
@@ -14,7 +14,7 @@
 
 
 - name: compile glance file
-  command: cp ~/servertest/roles/glance/tasks/glance-api.conf /etc/glance/glance-api.conf
+  command: cp ~/openstackope/roles/glance/tasks/glance-api.conf /etc/glance/glance-api.conf
 
 
 - name: change access status

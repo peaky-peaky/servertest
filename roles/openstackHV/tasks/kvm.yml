@@ -1,0 +1,12 @@
+---
+- name: install compute-kvm component
+  apt:
+    name:
+      - qemu-kvm
+      - libvirt-daemon-system
+      - libvirt-daemon
+      - virtinst
+      - bridge-utils
+      - libosinfo-bin
+      - libguestfs-tools
+      - virt-top

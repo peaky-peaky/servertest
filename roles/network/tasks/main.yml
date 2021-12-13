@@ -1,0 +1,5 @@
+---
+- name: network config
+  block:
+  - name: network set
+    import_tasks: network.yml

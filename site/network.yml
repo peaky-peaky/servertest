@@ -1,0 +1,6 @@
+---
+- name: config network
+  become: yes
+  hosts: all
+  roles:
+    - network

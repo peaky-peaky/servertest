@@ -1,0 +1,25 @@
+---
+- name: install needed software
+  apt:
+    name:
+      - software-properties-common 
+
+
+- name: check victoria repository
+  command: ls /etc/apt/sources.list.d
+  register: check_vic_rep
+
+
+- name: Ensure to add repository
+  shell: add-apt-repository cloud-archive:victoria
+  when: "'cloudarchive-victoria.list' not in check_vic_rep.stdout"
+
+
+- name: apt update
+  apt:
+    update_cache: yes
+
+
+- name: apt upgrade
+  apt:
+    upgrade: yes

@@ -1,0 +1,5 @@
+---
+- name: horizon config
+  block:
+  - name: horizon set
+    import_tasks: horizon.yml

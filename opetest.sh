@@ -1,4 +1,4 @@
-cat ~/servertest/roles/keystone/tasks/userlist | grep nova
+cat ~/openstackope/roles/keystone/tasks/userlist | grep nova
 
 if [ $? -ne 0 ]; then
  echo "start create nova user"
@@ -16,4 +16,4 @@ if [ $? -ne 0 ]; then
  openstack endpoint create --region RegionOne placement admin http://7.1.1.20:8778
 fi
 
-openstack user list > /root/servertest/roles/keystone/tasks/userlist
+openstack user list > /root/openstackope/roles/keystone/tasks/userlist

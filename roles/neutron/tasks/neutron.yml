@@ -22,7 +22,7 @@
 
 
 - name: copy neutron config
-  command: cp ~/servertest/roles/neutron/tasks/neutron.conf /etc/neutron/
+  command: cp ~/openstackope/roles/neutron/tasks/neutron.conf /etc/neutron/
 
 
 - name: change access auth
@@ -33,27 +33,27 @@
 
 
 - name: copy l3_agent.ini
-  command: cp ~/servertest/roles/neutron/tasks/l3_agent.ini /etc/neutron/
+  command: cp ~/openstackope/roles/neutron/tasks/l3_agent.ini /etc/neutron/
 
 
 - name: copy dhcp_agent.ini
-  command: cp ~/servertest/roles/neutron/tasks/dhcp_agent.ini /etc/neutron/
+  command: cp ~/openstackope/roles/neutron/tasks/dhcp_agent.ini /etc/neutron/
 
 
 - name: copy metadata_agent.ini
-  command: cp ~/servertest/roles/neutron/tasks/metadata_agent.ini /etc/neutron/
+  command: cp ~/openstackope/roles/neutron/tasks/metadata_agent.ini /etc/neutron/
 
 
 - name: copy metadata_agent.ini
-  command: cp ~/servertest/roles/neutron/tasks/ml2_conf.ini /etc/neutron/plugins/ml2/
+  command: cp ~/openstackope/roles/neutron/tasks/ml2_conf.ini /etc/neutron/plugins/ml2/
 
 
 - name: copy linuxbridge_agent.ini
-  command: cp ~/servertest/roles/neutron/tasks/linuxbridge_agent.ini /etc/neutron/plugins/ml2/
+  command: cp ~/openstackope/roles/neutron/tasks/linuxbridge_agent.ini /etc/neutron/plugins/ml2/
 
 
 - name: check neutron parameter
-  command: "cat /root/servertest/roles/neutron/tasks/neutron-result"
+  command: "cat /root/openstackope/roles/neutron/tasks/neutron-result"
   register: check_neutron_parameter
 
 

@@ -4,11 +4,11 @@ echo "start openstack configuration"
 PREV_IFS=$IFS
 IFS="
 "
-cat ~/servertest/roles/keystone/tasks/userlist | grep glance
+cat ~/openstackope/roles/keystone/tasks/userlist | grep glance
 
 if [ $? -ne 0 ]; then
  echo "start create glance user"
- for g in $(cat ~/servertest/glance-user)
+ for g in $(cat ~/openstackope/glance-user)
  do
  IFS=$PREV_IFS
  $g

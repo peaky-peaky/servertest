@@ -1,6 +1,6 @@
 ---
 - name: create  novauser
-  script: /root/servertest/roles/novauser/tasks/novauser.sh
+  script: /root/openstackope/roles/novauser/tasks/novauser.sh
 
 
 - name: install nova component
@@ -25,7 +25,7 @@
 
 
 - name: copy nova config
-  command: cp ~/servertest/roles/novauser/tasks/nova.conf /etc/nova/
+  command: cp ~/openstackope/roles/novauser/tasks/nova.conf /etc/nova/
 
 
 - name: change access auth
@@ -46,7 +46,7 @@
 
 
 - name: copy placement config
-  command: cp ~/servertest/roles/novauser/tasks/placement.conf /etc/placement/
+  command: cp ~/openstackope/roles/novauser/tasks/placement.conf /etc/placement/
 
 
 - name: change access auth
@@ -57,12 +57,12 @@
 
 
 - name: check nova parameter
-  command: "cat /root/servertest/roles/novauser/tasks/nova-result"
+  command: "cat /root/openstackope/roles/novauser/tasks/nova-result"
   register: check_nova_parameter
 
 
 - name: add-novauser to db
-  script: /root/servertest/roles/novauser/tasks/nova-compute.sh
+  script: /root/openstackope/roles/novauser/tasks/nova-compute.sh
   when: "'nova-' not in check_nova_parameter.stdout"
 
 

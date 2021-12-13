@@ -1,7 +1,7 @@
 #!/bin/bash
 
 mysql -u root -h localhost -e "SELECT user, host FROM mysql.user;" > ~/sqlresult
-cat ~/servertest/roles/glance/tasks/sqlresult | grep glance
+cat ~/openstackope/roles/glance/tasks/sqlresult | grep glance
 
 if [ $? -ne 0 ]; then
  mysql -u root -h localhost -e "create database glance;"

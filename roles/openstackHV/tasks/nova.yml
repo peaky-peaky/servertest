@@ -1,0 +1,28 @@
+---
+- name: install nova-compute component
+  apt:
+    name:
+      - nova-compute
+      - nova-compute-kvm
+      - qemu-system-data
+
+
+- name: nova.confのstatusを取得
+  stat: path=/etc/nova/nova.conf
+  register: nova_conf_stat
+
+
+- name: nova config backup
+  command: mv /etc/nova/nova.conf /etc/nova/nova.conf.org
+  when: nova_conf_stat.stat.exists
+
+
+- name: copy nova config
+  command: cp ~/openstackope/roles/novauser/tasks/nova.conf /etc/nova/
+
+
+- name: change access auth
+  file:
+    path: /etc/nova/nova.conf
+    mode: 0640
+    group: nova

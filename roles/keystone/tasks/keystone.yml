@@ -1,6 +1,6 @@
 ---
 - name: create keystone user
-  script: /root/servertest/roles/mariadb/tasks/sql.sh
+  script: /root/openstackope/roles/mariadb/tasks/sql.sh
 
 
 - name: install keystone component
@@ -33,7 +33,7 @@
 
 
 - name: compile keystone.conf
-  command: cp ~/servertest/roles/keystone/tasks/keystone.conf /etc/keystone/
+  command: cp ~/openstackope/roles/keystone/tasks/keystone.conf /etc/keystone/
 
 
 - name: check serverworld
@@ -78,7 +78,7 @@
 
 #- name: compile keystone var export file
  # copy:
-  #  src: "/home/ansible/servertest/roles/keystone/tasks/keystonerc"
+  #  src: "/home/ansible/openstackope/roles/keystone/tasks/keystonerc"
    # dest: "~/keystonerc"
 
 

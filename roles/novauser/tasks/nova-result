@@ -1,7 +1,7 @@
 +----+----------------+------------+----------+---------+-------+----------------------------+
 | ID | Binary         | Host       | Zone     | Status  | State | Updated At                 |
 +----+----------------+------------+----------+---------+-------+----------------------------+
-|  3 | nova-conductor | controller | internal | enabled | up    | 2021-12-09T15:41:06.000000 |
-|  4 | nova-scheduler | controller | internal | enabled | up    | 2021-12-09T15:41:07.000000 |
-|  5 | nova-compute   | controller | nova     | enabled | up    | 2021-12-09T15:41:08.000000 |
+|  6 | nova-conductor | controller | internal | enabled | up    | 2021-12-13T11:25:56.000000 |
+|  8 | nova-scheduler | controller | internal | enabled | up    | 2021-12-13T11:25:56.000000 |
+| 10 | nova-compute   | controller | nova     | enabled | up    | 2021-12-13T11:25:57.000000 |
 +----+----------------+------------+----------+---------+-------+----------------------------+

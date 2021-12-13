@@ -1,0 +1,7 @@
+[opesta-hv]
+7.1.10.2
+7.1.10.3
+
+[opesta-hv:vars]
+ansible_user=root
+ansible_password=8

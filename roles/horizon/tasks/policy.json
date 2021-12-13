@@ -1,0 +1,5 @@
+# 新規作成
+# デフォルトは [rule:system_admin_api] のため管理ユーザーしかアクセスできない
+{
+  "os_compute_api:os-extended-server-attributes": "rule:admin_or_owner",
+}

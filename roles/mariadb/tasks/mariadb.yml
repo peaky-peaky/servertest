@@ -29,7 +29,7 @@
 
 
 - name: Ensure to add repository
-  shell: add-apt-repository cloud-archive:victoria -y
+  shell: add-apt-repository cloud-archive:victoria
   when: "'cloudarchive-victoria.list' not in check_vic_rep.stdout"
 
 
@@ -91,7 +91,7 @@
 
 
 - name: set root password
-  script:  /root/servertest/roles/mariadb/tasks/sql.sh
+  script:  /root/openstackope/roles/mariadb/tasks/sql.sh
   
 
 - name: restart mariadb
@@ -111,4 +111,4 @@
 
 
 - name: create keystone user
-  script: /root/servertest/roles/mariadb/tasks/sql.sh 
+  script: /root/openstackope/roles/mariadb/tasks/sql.sh 

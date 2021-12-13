@@ -32,8 +32,8 @@ sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/g' /etc/ssh/ssh
 systemctl restart ssh
 apt -y install ansible 
 apt -y install git
-git clone https://github.com/peaky-peaky/servertest
-cd servertest
+git clone https://github.com/peaky-peaky/openstackope
+cd openstackope
 git config --global user.email azure84ro@gmail.com
 git config --global user.name peaky-peaky
 apt -y install sshpass
@@ -41,14 +41,14 @@ ssh root@7.1.1.20
 ansible -i inventory/hosts all -m ping
 source keystonerc
 sed -i 's/# set linenumbers/set linenumbers/g' /etc/nanorc
-sed -i  s/[a-z]*//g  ~/servertest/roles/keystone/tasks/prolist | sed -i  s/[0-9]*//g  ~/servertest/roles/keystone/tasks/prolist | sed -i  s/[A-Z]*//g  ~/servertest/roles/keystone/tasks/prolist | sed -i  s/-*//g  ~/servertest/roles/keystone/tasks/prolist | sed -i  s/+*//g  ~/servertest/roles/keystone/tasks/prolist | sed -i  's/|*//g'  ~/servertest/roles/keystone/tasks/prolist
-sed -i  s/[a-z]*//g  ~/servertest/roles/keystone/tasks/userlist | sed -i  s/[0-9]*//g  ~/servertest/roles/keystone/tasks/userlist | sed -i  s/[A-Z]*//g  ~/servertest/roles/keystone/tasks/userlist | sed -i  s/-*//g  ~/servertest/roles/keystone/tasks/userlist | sed -i  s/+*//g  ~/servertest/roles/keystone/tasks/userlist | sed -i  's/|*//g'  ~/servertest/roles/keystone/tasks/userlist
-sed -i  s/[a-z]*//g  ~/servertest/roles/keystone/tasks/sqlresult | sed -i  s/[0-9]*//g  ~/servertest/roles/keystone/tasks/sqlresult | sed -i  s/[A-Z]*//g  ~/servertest/roles/keystone/tasks/sqlresult | sed -i  s/-*//g  ~/servertest/roles/keystone/tasks/sqlresult | sed -i  s/+*//g  ~/servertest/roles/keystone/tasks/sqlresult | sed -i 's/|*//g'  ~/servertest/roles/keystone/tasks/sqlresult
-sed -i  s/[a-z]*//g  ~/servertest/roles/novauser/tasks/nova-result | sed -i  s/[0-9]*//g  ~/servertest/roles/novauser/tasks/nova-result | sed -i  s/[A-Z]*//g  ~/servertest/roles/novauser/tasks/nova-result | sed -i  s/-*//g  ~/servertest/roles/novauser/tasks/nova-result | sed -i  s/+*//g  ~/servertest/roles/novauser/tasks/nova-result | sed -i 's/|*//g'  ~/servertest/roles/novauser/tasks/nova-result
+sed -i  s/[a-z]*//g  ~/openstackope/roles/keystone/tasks/prolist | sed -i  s/[0-9]*//g  ~/servertest/roles/keystone/tasks/prolist | sed -i  s/[A-Z]*//g  ~/servertest/roles/keystone/tasks/prolist | sed -i  s/-*//g  ~/servertest/roles/keystone/tasks/prolist | sed -i  s/+*//g  ~/servertest/roles/keystone/tasks/prolist | sed -i  's/|*//g'  ~/servertest/roles/keystone/tasks/prolist
+sed -i  s/[a-z]*//g  ~/openstackope/roles/keystone/tasks/userlist | sed -i  s/[0-9]*//g  ~/servertest/roles/keystone/tasks/userlist | sed -i  s/[A-Z]*//g  ~/servertest/roles/keystone/tasks/userlist | sed -i  s/-*//g  ~/servertest/roles/keystone/tasks/userlist | sed -i  s/+*//g  ~/servertest/roles/keystone/tasks/userlist | sed -i  's/|*//g'  ~/servertest/roles/keystone/tasks/userlist
+sed -i  s/[a-z]*//g  ~/openstackope/roles/keystone/tasks/sqlresult | sed -i  s/[0-9]*//g  ~/servertest/roles/keystone/tasks/sqlresult | sed -i  s/[A-Z]*//g  ~/servertest/roles/keystone/tasks/sqlresult | sed -i  s/-*//g  ~/servertest/roles/keystone/tasks/sqlresult | sed -i  s/+*//g  ~/servertest/roles/keystone/tasks/sqlresult | sed -i 's/|*//g'  ~/servertest/roles/keystone/tasks/sqlresult
+sed -i  s/[a-z]*//g  ~/openstackope/roles/novauser/tasks/nova-result | sed -i  s/[0-9]*//g  ~/servertest/roles/novauser/tasks/nova-result | sed -i  s/[A-Z]*//g  ~/servertest/roles/novauser/tasks/nova-result | sed -i  s/-*//g  ~/servertest/roles/novauser/tasks/nova-result | sed -i  s/+*//g  ~/servertest/roles/novauser/tasks/nova-result | sed -i 's/|*//g'  ~/servertest/roles/novauser/tasks/nova-result
 
 nano /etc/ansible/ansible.cfg
 interpreter_python=/usr/bin/python3
-roles_path = /root/servertest/roles
+roles_path = /root/openstackope/roles
 
 ■if needed;
 for i in nova nova_cell0 placement nova_api; do mysql -u root -h localhost -e "drop database ${i};"; do

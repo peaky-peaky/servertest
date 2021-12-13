@@ -4,11 +4,11 @@ echo "start openstack configuration"
 PREV_IFS=$IFS
 IFS="
 "
-cat ~/servertest/roles/keystone/tasks/userlist | grep nova
+cat ~/openstackope/roles/keystone/tasks/userlist | grep nova
 
 if [ $? -ne 0 ]; then
  echo "start create nova user"
- for g in $(cat ~/servertest/nova-user)
+ for g in $(cat ~/openstackope/nova-user)
  do
  IFS=$PREV_IFS
  $g

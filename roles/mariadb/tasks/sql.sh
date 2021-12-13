@@ -1,6 +1,6 @@
 #!/bin/bash
 
-cat ~/servertest/roles/mariadb/tasks/sqluser | grep root
+cat ~/openstackope/roles/mariadb/tasks/sqluser | grep root
 
 if [ $? -ne 0 ]; then
  expect -c '
@@ -19,7 +19,7 @@ if [ $? -ne 0 ]; then
      send "y\n";
      interact;'
 
- #cp ~/servertest/roles/mariadb/tasks/.my.cnf ~/
+ #cp ~/openstackope/roles/mariadb/tasks/.my.cnf ~/
  systemctl restart mysql
 fi
 
